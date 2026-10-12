@@ -1,0 +1,86 @@
+batch,complaint_id,product,issue,udaap_flag,fair_lending_flag,evidence,narrative_words
+batch_01,C-0101,Credit card,Unauthorized charge,N,N,,80
+batch_01,C-0102,Checking/Savings,Deposits and withdrawals,N,N,,59
+batch_01,C-0103,Mortgage,Payment processing or escrow,N,N,,72
+batch_01,C-0104,Credit card,Fees or interest,Y,N,the banker at the branch told me the balance transfer had no fee and 0% for 18 months,75
+batch_01,C-0105,Auto loan,Payoff or title release,N,N,,70
+batch_01,C-0106,Debt collection,Communication tactics,N,N,,64
+batch_02,C-0201,Checking/Savings,Overdraft or NSF fees,N,N,,70
+batch_02,C-0202,Mortgage,Loan modification or forbearance,Y,N,The rep said if I stopped paying for three months I would qualify for the modification,77
+batch_02,C-0203,Credit card,Billing dispute,N,N,,73
+batch_02,C-0204,Auto loan,Repossession,N,N,,65
+batch_02,C-0205,Debt collection,Validation or verification,N,N,,62
+batch_03,C-0301,Other/escalate,Needs human review,N,N,,79
+batch_03,C-0302,Checking/Savings,Account opening or closing,N,N,,57
+batch_03,C-0303,Credit card,Credit limit change,N,N,,63
+batch_03,C-0304,Personal loan,Payment problem,N,N,,44
+batch_03,C-0305,Mortgage,Servicing transfer,N,N,,55
+batch_04,C-0401,Credit card,Rewards,N,N,,48
+batch_04,C-0402,Checking/Savings,Account access or frozen funds,N,N,,59
+batch_04,C-0403,Debt collection,Debt not owed,N,N,,53
+batch_04,C-0404,Mortgage,Closing costs,N,N,,53
+batch_04,C-0405,Personal loan,Fees or interest,Y,N,"The loan officer said there was no origination fee, I asked twice",59
+batch_05,C-0501,Auto loan,Add-on products or GAP coverage,Y,N,I said no to GAP coverage twice,55
+batch_05,C-0502,Credit card,Billing dispute,N,N,,50
+batch_05,C-0503,Checking/Savings,Transfers and automatic payments,N,N,,56
+batch_05,C-0504,Debt collection,Credit reporting of collected debt,N,N,,58
+batch_05,C-0505,Mortgage,Late fees,N,N,,45
+batch_06,C-0601,Credit card,Unauthorized charge,N,N,,60
+batch_06,C-0602,Checking/Savings,Overdraft or NSF fees,N,N,,49
+batch_06,C-0603,Personal loan,Payoff,N,N,,53
+batch_06,C-0604,Debt collection,Validation or verification,N,N,,46
+batch_06,C-0605,Auto loan,Payment problem,N,N,,64
+batch_06,C-0606,Mortgage,Loan modification or forbearance,N,Y,he told me that with my accent and my kind of last name the underwriters would probably not approve me,729
+batch_07,C-0701,Credit card,Fees or interest,N,N,,52
+batch_07,C-0702,Mortgage,Payment processing or escrow,N,N,,54
+batch_07,C-0703,Auto loan,Payment problem,N,N,,55
+batch_07,C-0704,Checking/Savings,Deposits and withdrawals,N,N,,52
+batch_07,C-0705,Debt collection,Communication tactics,N,N,,45
+batch_07,C-0706,Checking/Savings,Account access or frozen funds,N,N,,648
+batch_08,C-0801,Other/escalate,Needs human review,N,N,,71
+batch_08,C-0802,Credit card,Unauthorized charge,N,N,,50
+batch_08,C-0803,Checking/Savings,Account opening or closing,N,N,,48
+batch_08,C-0804,Personal loan,Application or denial,N,N,,49
+batch_08,C-0805,Mortgage,Late fees,N,N,,44
+batch_09,C-0901,Checking/Savings,Overdraft or NSF fees,Y,N,When I opened account [REDACTED] in May the banker told me I would never be charged overdraft fees under $25,62
+batch_09,C-0902,Credit card,Credit limit change,N,N,,43
+batch_09,C-0903,Auto loan,Add-on products or GAP coverage,Y,N,The finance guy at the dealership said it was required for approval,49
+batch_09,C-0904,Debt collection,Debt not owed,N,N,,44
+batch_09,C-0905,Mortgage,Payment processing or escrow,N,N,,48
+batch_10,C-1001,Credit card,Fees or interest,Y,N,The rep said this card has no foreign transaction fees,53
+batch_10,C-1002,Checking/Savings,Deposits and withdrawals,N,N,,79
+batch_10,C-1003,Personal loan,Application or denial,N,Y,The loan officer asked if my income was from disability and said people on benefits are a risk,48
+batch_10,C-1004,Mortgage,Servicing transfer,N,N,,50
+batch_10,C-1005,Debt collection,Communication tactics,N,N,,39
+batch_10,C-1006,Auto loan,Payment problem,N,N,,51
+batch_11,C-1101,Mortgage,Late fees,N,N,,90
+batch_11,C-1102,Credit card,Rewards,N,N,,35
+batch_11,C-1103,Checking/Savings,Overdraft or NSF fees,N,N,,37
+batch_11,C-1104,Debt collection,Debt not owed,N,N,,39
+batch_11,C-1105,Auto loan,Repossession,N,N,,45
+batch_12,C-1201,Checking/Savings,Overdraft or NSF fees,N,N,,64
+batch_12,C-1202,Credit card,Billing dispute,N,N,,47
+batch_12,C-1203,Mortgage,Payment processing or escrow,N,N,,41
+batch_12,C-1204,Personal loan,Payoff,N,N,,37
+batch_12,C-1205,Auto loan,Payoff or title release,N,N,,43
+batch_13,C-1301,Credit card,Credit limit change,N,N,,47
+batch_13,C-1302,Checking/Savings,Transfers and automatic payments,N,N,,40
+batch_13,C-1303,Mortgage,Loan modification or forbearance,N,N,,41
+batch_13,C-1304,Debt collection,Validation or verification,N,N,,42
+batch_13,C-1305,Personal loan,Payment problem,N,N,,44
+batch_14,C-1401,Other/escalate,Needs human review,N,N,,69
+batch_14,C-1402,Credit card,Fees or interest,N,N,,50
+batch_14,C-1403,Checking/Savings,Account access or frozen funds,N,N,,53
+batch_14,C-1404,Mortgage,Loan modification or forbearance,N,N,,52
+batch_14,C-1405,Auto loan,Add-on products or GAP coverage,N,N,,51
+batch_14,C-1406,Debt collection,Communication tactics,N,N,,37
+batch_15,C-1501,Debt collection,Debt not owed,N,N,,61
+batch_15,C-1502,Credit card,Fees or interest,N,N,,54
+batch_15,C-1503,Mortgage,Servicing transfer,N,N,,38
+batch_15,C-1504,Checking/Savings,Deposits and withdrawals,N,N,,44
+batch_15,C-1505,Auto loan,Repossession,N,N,,47
+batch_16,C-1601,Personal loan,Fees or interest,Y,N,The loan officer told me my rate would drop to 8.9% after six on-time payments,42
+batch_16,C-1602,Mortgage,Late fees,N,N,,65
+batch_16,C-1603,Credit card,Unauthorized charge,N,N,,45
+batch_16,C-1604,Checking/Savings,Account access or frozen funds,N,N,,48
+batch_16,C-1605,Debt collection,Validation or verification,N,N,,43

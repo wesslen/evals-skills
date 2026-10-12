@@ -1,0 +1,37 @@
+Trace T04  trace_id=84054c1434a136a543f366ccec31e564
+34 spans: (none) 14, AGENT 1, CHAIN 5, EMBEDDING 1, GUARDRAIL 5, LLM 5, TOOL 3
+
+        0ms chat.agent.turn [AGENT] 10291ms
+        1ms   POST 70ms  200
+       73ms   context.collect [CHAIN] 228ms
+       75ms     workspace.list_files 12ms
+       89ms     editor.active_document 1ms
+       89ms     embeddings [EMBEDDING] 208ms
+      301ms   content_exclusion.check [GUARDRAIL] 5ms
+      306ms   ChatCompletion [LLM] 1581ms  agent-model-2026-08 tokens=595+26 -> list_dir
+      309ms     prompt.render [CHAIN] 13ms
+      324ms     POST 1555ms  200
+     1881ms     rai.content_filter [GUARDRAIL] 2ms
+     1887ms   list_dir [TOOL] 5ms  fixtures/batches
+     1888ms     fs.readdir 1ms
+     1892ms   ChatCompletion [LLM] 939ms  agent-model-2026-08 tokens=662+31 -> read_file
+     1895ms     prompt.render [CHAIN] 7ms
+     1903ms     POST 919ms  200
+     2823ms     rai.content_filter [GUARDRAIL] 4ms
+     2832ms   read_file [TOOL] 5ms  fixtures/batches/batch_04.csv
+     2833ms     fs.read 3ms
+     2837ms   ChatCompletion [LLM] 4410ms  agent-model-2026-08 tokens=1068+202 -> create_file
+     2839ms     prompt.render [CHAIN] 14ms
+     2855ms     POST 4384ms  200
+     7241ms     rai.content_filter [GUARDRAIL] 4ms
+     7247ms   create_file [TOOL] 24ms  notes/batch_04_overview.md
+     7250ms     fs.stat 1ms
+     7252ms     fs.write 3ms
+     7256ms     editor.open_document 12ms
+     7272ms   ChatCompletion [LLM] 2344ms  agent-model-2026-08 tokens=1104+168
+     7274ms     prompt.render [CHAIN] 8ms
+     7283ms     POST 2326ms  200
+     9612ms     rai.content_filter [GUARDRAIL] 1ms
+     9616ms   ChatCompletion [LLM] 465ms  agent-model-mini-2026-06 tokens=42+6
+     9617ms     POST 459ms  200
+    10199ms   POST 90ms  202
