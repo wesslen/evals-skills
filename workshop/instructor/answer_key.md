@@ -218,7 +218,7 @@ Two noise spans are *near* signal and worth discussing:
    - T09's other `exit=1` is benign: it's `grep -c` correctly finding zero PII matches in the CSV.
 
    So "filter to error spans" finds nothing useful.
-3. **The same content shows up many times.** Every `LLM` span repeats the whole conversation in `llm.input_messages.*` *and* in `input.value`. A PII scan over raw telemetry will report T09's account number dozens of times, once per later LLM call. Scan the final output (the root's `output.value` and the `create_file` arguments), not every attribute.
+3. **The same content shows up many times.** Every `LLM` span repeats the whole conversation in `llm.input_messages.*` *and* in `input.value`. A PII scan over raw telemetry finds T09's account number in 10 different span attributes, although the agent leaked it only once. Scan the final output (the root's `output.value` and the `create_file` arguments), not every attribute.
 4. **Telemetry can show *why*, not just *what*.**
    - The system prompt in every `LLM` span lists the `complaint-triage` skill and its description. In T04/T14/T15/T16 it's available, but no `skill.load` span appears: the skill was offered and not used, which is useful for the F1 discussion.
    - Token counts show the cost of each step.
