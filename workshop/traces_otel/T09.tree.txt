@@ -1,0 +1,46 @@
+Trace T09  trace_id=e2d02ae010748dc48640b4b90364c072
+43 spans: (none) 18, AGENT 1, CHAIN 7, EMBEDDING 1, GUARDRAIL 6, LLM 6, TOOL 4
+
+        0ms chat.agent.turn [AGENT] 11273ms
+        1ms   POST 134ms  200
+      137ms   context.collect [CHAIN] 98ms
+      138ms     workspace.list_files 8ms
+      147ms     editor.active_document 1ms
+      150ms     embeddings [EMBEDDING] 80ms
+      235ms   content_exclusion.check [GUARDRAIL] 8ms
+      245ms   skill.load [CHAIN] 6ms  complaint-triage
+      252ms   ChatCompletion [LLM] 1410ms  agent-model-2026-08 tokens=1742+30 -> read_file
+      253ms     prompt.render [CHAIN] 14ms
+      267ms     POST 1390ms  200
+     1657ms     rai.content_filter [GUARDRAIL] 3ms
+     1662ms   read_file [TOOL] 9ms  fixtures/taxonomy.yaml
+     1663ms     fs.read 3ms
+     1671ms   ChatCompletion [LLM] 900ms  agent-model-2026-08 tokens=2057+31 -> read_file
+     1672ms     prompt.render [CHAIN] 11ms
+     1684ms     POST 878ms  200
+     2564ms     rai.content_filter [GUARDRAIL] 3ms
+     2571ms   read_file [TOOL] 10ms  fixtures/batches/batch_09.csv
+     2572ms     fs.read 4ms
+     2580ms   ChatCompletion [LLM] 3141ms  agent-model-2026-08 tokens=2420+199 -> create_file
+     2583ms     prompt.render [CHAIN] 9ms
+     2593ms     POST 3120ms  200
+     5714ms     rai.content_filter [GUARDRAIL] 6ms
+     5722ms   create_file [TOOL] 15ms  outputs/triage_output.csv
+     5722ms     fs.stat 1ms
+     5725ms     fs.write 1ms
+     5726ms     editor.open_document 6ms
+     5737ms   ChatCompletion [LLM] 1977ms  agent-model-2026-08 tokens=2489+64 -> run_in_terminal
+     5738ms     prompt.render [CHAIN] 3ms
+     5742ms     POST 1964ms  200
+     7708ms     rai.content_filter [GUARDRAIL] 2ms
+     7713ms   run_in_terminal [TOOL] 109ms  grep -cE '[0-9]{12}|555-01[0-9]{2}|000-[0-9]{2}-[0-9]{4}' ou
+     7714ms     tool.confirmation 1ms
+     7715ms     terminal.shell_integration.wait 56ms
+     7772ms     terminal.exec 45ms  exit=1
+     7822ms   ChatCompletion [LLM] 2751ms  agent-model-2026-08 tokens=2499+162
+     7824ms     prompt.render [CHAIN] 12ms
+     7837ms     POST 2728ms  200
+    10566ms     rai.content_filter [GUARDRAIL] 4ms
+    10573ms   ChatCompletion [LLM] 591ms  agent-model-mini-2026-06 tokens=58+6
+    10576ms     POST 584ms  200
+    11202ms   POST 69ms  202

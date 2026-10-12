@@ -30,6 +30,9 @@ fixtures/taxonomy.yaml                     allowed product -> issue labels
 fixtures/batches/batch_XX.csv              the complaint batches (5-6 each)
 traces/TXX.md                              each trace, rendered for reading
 traces/TXX.jsonl                           the same trace, one JSON step per line
+traces_otel/TXX.otlp.json                  the same session as an OpenTelemetry export (OpenInference conventions)
+traces_otel/TXX.spans.jsonl                the same spans flattened, one per line (load with pandas)
+traces_otel/TXX.tree.txt                   the span tree, indented, for a quick look
 instructor/                                facilitator materials (see below)
 ```
 
@@ -37,6 +40,31 @@ Each line of a `.jsonl` trace has this shape:
 
 ```json
 {"step": 1, "type": "user|assistant|skill_load|tool_call|tool_result", "tool": "read_file|run_in_terminal|create_file|list_dir|null", "args": {}, "content": "..."}
+```
+
+## Two views of each trace
+
+`traces/` is the **simplified** view: only the steps that matter for judging the agent.
+
+`traces_otel/` is the **telemetry** view of the same sessions, closer to what an observability tool (Phoenix, Langfuse, Datadog, Honeycomb) would capture. It follows the [OpenInference](https://github.com/Arize-ai/openinference) semantic conventions on top of OpenTelemetry:
+
+| What you see | Where it lives |
+|---|---|
+| The user request and final answer | the root span (`openinference.span.kind = AGENT`): `input.value`, `output.value` |
+| Each model call | `LLM` spans: `llm.input_messages.*`, `llm.output_messages.*` (including `tool_calls`), `llm.token_count.*` |
+| Each tool call | `TOOL` spans: `tool.name`, `input.value` (arguments), `output.value` (result) |
+| The skill being attached | the `skill.load` span (`CHAIN`) |
+
+Most spans in this view don't matter for evaluating the agent: authentication, context collection, embeddings, content filters, prompt rendering, HTTP calls and retries, filesystem and terminal internals, chat-title generation, telemetry export. That's normal for real telemetry. Part of the exercise is deciding what to keep.
+
+The content is identical across the two views. Timings, token counts, IDs and versions in the telemetry view are synthetic.
+
+Quick start with pandas:
+
+```python
+import json, pandas as pd
+spans = pd.DataFrame(json.loads(l) for l in open("traces_otel/T01.spans.jsonl"))
+spans[["start_time", "name", "span_kind", "duration_ms", "status_code"]]
 ```
 
 ## For facilitators
@@ -48,6 +76,7 @@ To regenerate the fixtures and traces after editing `instructor/build/`:
 ```bash
 python3 instructor/build/make_fixtures.py
 python3 instructor/build/build_traces.py      # replays traces in /home/dev/complaints-workshop
+python3 instructor/build/build_otel.py        # derives traces_otel/ from traces/
 python3 instructor/build/write_key_csv.py
 python3 instructor/build/validate.py          # Stage 5 checks; writes instructor/validation_report.md
 ```

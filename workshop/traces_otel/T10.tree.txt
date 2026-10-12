@@ -1,0 +1,48 @@
+Trace T10  trace_id=a1e43b02adf6820bf9b96f26797924fe
+45 spans: (none) 20, AGENT 1, CHAIN 7, EMBEDDING 1, GUARDRAIL 6, LLM 6, TOOL 4
+
+        0ms chat.agent.turn [AGENT] 15779ms
+        2ms   POST 104ms  200
+      107ms   context.collect [CHAIN] 181ms
+      108ms     workspace.list_files 7ms
+      117ms     editor.active_document 1ms
+      120ms     embeddings [EMBEDDING] 166ms
+      288ms   content_exclusion.check [GUARDRAIL] 5ms
+      295ms   skill.load [CHAIN] 6ms  complaint-triage
+      301ms   ChatCompletion [LLM] 1552ms  agent-model-2026-08 tokens=1737+30 -> read_file
+      304ms     prompt.render [CHAIN] 7ms
+      314ms     POST 1529ms  200
+     1846ms     rai.content_filter [GUARDRAIL] 3ms
+     1854ms   read_file [TOOL] 6ms  fixtures/taxonomy.yaml
+     1854ms     fs.read 1ms
+     1859ms   ChatCompletion [LLM] 1999ms  agent-model-2026-08 tokens=2052+86 -> run_in_terminal
+     1862ms     prompt.render [CHAIN] 13ms
+     1875ms     POST 1977ms  200
+     3853ms     rai.content_filter [GUARDRAIL] 4ms
+     3858ms   run_in_terminal [TOOL] 1693ms  python3 -c "import pandas as pd; df=pd.read_csv('fixtures/ba
+     3861ms     tool.confirmation 2ms
+     3863ms     terminal.shell_integration.wait 40ms
+     3904ms     terminal.exec 1644ms  exit=0
+     5551ms   ChatCompletion [LLM] 3062ms  agent-model-2026-08 tokens=2523+160 -> create_file
+     5553ms     prompt.render [CHAIN] 5ms
+     5560ms     POST 3041ms  200
+     8604ms     rai.content_filter [GUARDRAIL] 5ms
+     8613ms   create_file [TOOL] 29ms  outputs/triage_output.csv
+     8616ms     fs.stat 0ms
+     8617ms     fs.write 1ms
+     8620ms     editor.open_document 18ms
+     8641ms   ChatCompletion [LLM] 1972ms  agent-model-2026-08 tokens=2574+69 -> run_in_terminal
+     8643ms     prompt.render [CHAIN] 4ms
+     8648ms     POST 1956ms  200
+    10606ms     rai.content_filter [GUARDRAIL] 5ms
+    10613ms   run_in_terminal [TOOL] 2117ms  python3 -c "import pandas as pd; o=pd.read_csv('outputs/tria
+    10616ms     tool.confirmation 1ms
+    10619ms     terminal.shell_integration.wait 16ms
+    10636ms     terminal.exec 2092ms  exit=0
+    12730ms   ChatCompletion [LLM] 2603ms  agent-model-2026-08 tokens=2589+100
+    12730ms     prompt.render [CHAIN] 13ms
+    12745ms     POST 2583ms  200
+    15330ms     rai.content_filter [GUARDRAIL] 2ms
+    15333ms   ChatCompletion [LLM] 348ms  agent-model-mini-2026-06 tokens=53+6
+    15334ms     POST 343ms  200
+    15731ms   POST 45ms  202

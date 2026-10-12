@@ -177,3 +177,57 @@ With no skill there's no redaction rule and no evidence rule. In the step 7 scri
 | F6 | | | | | **Primary:** multi-product rule in SKILL.md |
 | F7 | | Evidence is a verbatim substring | **Primary:** judge "does the span support the flag?" | Reviewer subagent | |
 | F8 | | **Primary:** file exists; summary N == rows; any traceback must be reported | | postToolUse hook on non-zero exit | |
+
+---
+
+## 6. The OpenTelemetry / OpenInference view (`traces_otel/`)
+
+Each trace is also exported as an OTel trace using OpenInference conventions, about 34–50 spans per session. **Only 8–11 of those spans carry anything you'd use for evaluation**: the `AGENT` root, `skill.load`, the agent's `LLM` spans, and the `TOOL` spans. `validate.py` proves the views carry the same content: `otel_to_steps()` rebuilds every `traces/TXX.jsonl` exactly from its spans.
+
+### Mapping
+
+| Simplified step | OTel span | Attribute(s) |
+|---|---|---|
+| `user` | root `chat.agent.turn` [AGENT] | `input.value` |
+| `skill_load` | `skill.load` [CHAIN] | `skill.name`, `skill.path`, `output.value` (SKILL.md text) |
+| `assistant` text | `ChatCompletion` [LLM] | `llm.output_messages.0.message.content` |
+| `tool_call` | the same `ChatCompletion` [LLM] | `llm.output_messages.0.message.tool_calls.0.tool_call.function.{name,arguments}` |
+| `tool_result` | `<tool name>` [TOOL] | `output.value` (arguments in `input.value`) |
+| final answer | root span | `output.value` |
+
+**Noise spans** (no eval signal):
+- `POST` (auth, model gateway, metrics)
+- `context.collect`, `workspace.list_files`, `editor.active_document`
+- `embeddings` [EMBEDDING]
+- `content_exclusion.check` and `rai.content_filter` [GUARDRAIL]
+- `prompt.render`, `retry.backoff`
+- `fs.*`, `editor.open_document`
+- `tool.confirmation`, `terminal.shell_integration.wait`
+- the second `ChatCompletion`, which only generates the chat title (`metadata.purpose = chat.title`, mini model)
+
+Two noise spans are *near* signal and worth discussing:
+- `tool.output.truncate` (T06, T07) records that a tool result was cut. That's the platform admitting the truncation the agent then ignored.
+- `terminal.exec` holds `process.exit.code`.
+
+### Teachable points specific to the telemetry view
+
+1. **Telemetry ≠ trace review.** A session generates 4–5× more spans than steps that matter. Before you can open-code, you have to decide what a "trace" is for your eval. Ask the room to write the filter: keep `AGENT`, agent `LLM`, `TOOL` and `skill.load`; drop the rest.
+2. **Status codes lie in both directions.**
+   - The only `ERROR` spans in the whole set are harmless HTTP 429 rate-limit retries, in **T01 (a pass)**, T07 and T12.
+   - T13's real failure, the `OSError`, sits on a `TOOL` span with status **OK**. The only structured signal is `process.exit.code = 1` on a child `terminal.exec` span.
+   - T09's other `exit=1` is benign: it's `grep -c` correctly finding zero PII matches in the CSV.
+
+   So "filter to error spans" finds nothing useful.
+3. **The same content shows up many times.** Every `LLM` span repeats the whole conversation in `llm.input_messages.*` *and* in `input.value`. A PII scan over raw telemetry will report T09's account number dozens of times, once per later LLM call. Scan the final output (the root's `output.value` and the `create_file` arguments), not every attribute.
+4. **Telemetry can show *why*, not just *what*.**
+   - The system prompt in every `LLM` span lists the `complaint-triage` skill and its description. In T04/T14/T15/T16 it's available, but no `skill.load` span appears: the skill was offered and not used, which is useful for the F1 discussion.
+   - Token counts show the cost of each step.
+   - `llm.token_count.prompt_details.cache_read` shows prompt caching at work.
+5. **This is a privacy surface too.** Raw telemetry holds full narratives, the SSN and the account number in plain text, in many places. Exporting agent traces to a third-party observability vendor is itself a data-governance decision. That connects F4 to the platform, not just the agent.
+
+### Suggested exercise (15 min)
+
+Give participants `traces_otel/T13.spans.jsonl` and `T01.spans.jsonl` with no other context. Ask them to:
+1. Find the step where T13 went wrong.
+2. Explain why T01, the one with the ERROR span, is the trace that passed.
+3. Write a function that reduces spans to the simplified steps. Compare it with `otel_to_steps()` in `instructor/build/validate.py`.
