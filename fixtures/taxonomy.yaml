@@ -1,0 +1,53 @@
+# Complaint triage taxonomy for the Bank.
+# Each complaint receives exactly one product and one issue from this file.
+
+version: 3
+products:
+  - product: Checking/Savings
+    issues:
+      - Account opening or closing
+      - Deposits and withdrawals
+      - Overdraft or NSF fees
+      - Transfers and automatic payments
+      - Account access or frozen funds
+
+  - product: Credit card
+    issues:
+      - Billing dispute
+      - Unauthorized charge
+      - Fees or interest
+      - Credit limit change
+      - Rewards
+
+  - product: Mortgage
+    issues:
+      - Payment processing or escrow
+      - Late fees
+      - Loan modification or forbearance
+      - Servicing transfer
+      - Closing costs
+
+  - product: Auto loan
+    issues:
+      - Payment problem
+      - Repossession
+      - Add-on products or GAP coverage
+      - Payoff or title release
+
+  - product: Personal loan
+    issues:
+      - Application or denial
+      - Payment problem
+      - Fees or interest
+      - Payoff
+
+  - product: Debt collection
+    issues:
+      - Debt not owed
+      - Communication tactics
+      - Validation or verification
+      - Credit reporting of collected debt
+
+  - product: Other/escalate
+    issues:
+      - Needs human review
