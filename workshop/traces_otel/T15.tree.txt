@@ -1,0 +1,41 @@
+Trace T15  trace_id=49703316338f5aa00f46d2e894f2c174
+38 spans: (none) 18, AGENT 1, CHAIN 5, EMBEDDING 1, GUARDRAIL 5, LLM 5, TOOL 3
+
+        0ms chat.agent.turn [AGENT] 17685ms
+        3ms   POST 88ms  200
+       91ms   context.collect [CHAIN] 181ms
+       93ms     workspace.list_files 21ms
+      115ms     editor.active_document 1ms
+      115ms     embeddings [EMBEDDING] 153ms
+      272ms   content_exclusion.check [GUARDRAIL] 3ms
+      276ms   ChatCompletion [LLM] 1643ms  agent-model-2026-08 tokens=592+40 -> run_in_terminal
+      278ms     prompt.render [CHAIN] 11ms
+      289ms     POST 1618ms  200
+     1909ms     rai.content_filter [GUARDRAIL] 4ms
+     1919ms   run_in_terminal [TOOL] 74ms  find . -name 'batch_15.csv'
+     1920ms     tool.confirmation 1ms
+     1922ms     terminal.shell_integration.wait 42ms
+     1965ms     terminal.exec 24ms  exit=0
+     1993ms   ChatCompletion [LLM] 1985ms  agent-model-2026-08 tokens=612+89 -> run_in_terminal
+     1994ms     prompt.render [CHAIN] 11ms
+     2005ms     POST 1968ms  200
+     3975ms     rai.content_filter [GUARDRAIL] 1ms
+     3978ms   run_in_terminal [TOOL] 2700ms  python3 -c "import pandas as pd; df=pd.read_csv('fixtures/ba
+     3979ms     tool.confirmation 0ms
+     3981ms     terminal.shell_integration.wait 8ms
+     3989ms     terminal.exec 2687ms  exit=0
+     6679ms   ChatCompletion [LLM] 4498ms  agent-model-2026-08 tokens=985+312 -> run_in_terminal
+     6680ms     prompt.render [CHAIN] 12ms
+     6694ms     POST 4471ms  200
+    11168ms     rai.content_filter [GUARDRAIL] 4ms
+    11176ms   run_in_terminal [TOOL] 2768ms  python3 - <<'EOF'
+    11178ms     tool.confirmation 2ms
+    11180ms     terminal.shell_integration.wait 42ms
+    11222ms     terminal.exec 2717ms  exit=0
+    13944ms   ChatCompletion [LLM] 3151ms  agent-model-2026-08 tokens=1079+156
+    13944ms     prompt.render [CHAIN] 3ms
+    13949ms     POST 3142ms  200
+    17092ms     rai.content_filter [GUARDRAIL] 1ms
+    17095ms   ChatCompletion [LLM] 428ms  agent-model-mini-2026-06 tokens=39+6
+    17098ms     POST 423ms  200
+    17606ms   POST 75ms  202
